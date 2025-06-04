@@ -555,7 +555,6 @@
       }
     }
   },
-  
   "chat": {
     "gameTitle": "Escolhe a Resposta",
     "instructions": "Responda às mensagens de cyberbullying no chat. Suas escolhas fazem diferença!",
@@ -563,6 +562,7 @@
     "chooseAction": "Como você vai responder?",
     "score": "Pontuação",
     "scenarioComplete": "Cenário Concluído!",
+    "waitingForMessages": "Aguardando novas mensagens no chat...",
     "reactions": {
       "report": {
         "text": "Denunciar Mensagem 🚨",
@@ -580,6 +580,12 @@
         "text": "Juntar aos Comentários 😬",
         "consequence": "Você se juntou ao bullying. Isso piora a situação e encoraja outros a continuarem com o bullying."
       }
+    },
+    "responseOptions": {
+      "defend1": "Parem com isso! O João não merece esse tipo de comentário. Vamos respeitar todos, por favor.",
+      "defend2": "Isso não é legal. João, não liga para esses comentários, eles não te definem.",
+      "join": "Hahaha, realmente estranho esse projecto! Não sei como conseguiste fazer isso...",
+      "ignore": "✓✓ Visualizado"
     },
     "scenarios": {
       "classroom": {

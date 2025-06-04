@@ -564,6 +564,7 @@
     "chooseAction": "How will you respond?",
     "score": "Score",
     "scenarioComplete": "Scenario Complete!",
+    "waitingForMessages": "Waiting for new messages in the chat...",
     "reactions": {
       "report": {
         "text": "Report Message 🚨",
@@ -581,6 +582,12 @@
         "text": "Join Comments 😬",
         "consequence": "You joined in with the bullying. This makes the situation worse and encourages others to continue the bullying."
       }
+    },
+    "responseOptions": {
+      "defend1": "Stop it! João doesn't deserve this kind of comment. Let's respect everyone, please.",
+      "defend2": "That's not cool. João, don't pay attention to these comments, they don't define you.",
+      "join": "Hahaha, really strange presentation! I don't know how you managed to do that...",
+      "ignore": "✓✓ Seen"
     },
     "scenarios": {
       "classroom": {

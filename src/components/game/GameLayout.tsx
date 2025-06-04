@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 
 interface GameLayoutProps {
@@ -16,6 +16,7 @@ export default function GameLayout({ children }: GameLayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Verificar qual página está ativa com base no pathname
   const isHomePage = pathname === `/${locale}` || pathname === '/';
@@ -31,6 +32,11 @@ export default function GameLayout({ children }: GameLayoutProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Fechar menu mobile quando mudar de página
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   // Função para trocar o idioma mantendo o usuário na mesma página
   const switchLanguage = (newLocale: string) => {
     // Extrai o caminho sem o prefixo de locale
@@ -42,10 +48,15 @@ export default function GameLayout({ children }: GameLayoutProps) {
   // Estilos para os links do menu
   const defaultLinkStyle = "text-gray-700 hover:text-green-600 transition px-3 py-2 rounded-lg hover:bg-green-50";
   const activeLinkStyle = "bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition shadow-sm";
+  
+  // Estilos para os links mobile
+  const mobileLinkStyle = "w-full text-left px-4 py-5 text-gray-800 text-lg";
+  const mobileActiveLinkStyle = "w-full text-left px-4 py-5 bg-green-50 text-green-700 font-medium text-lg";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      <header className={`sticky top-0 z-10 transition-all duration-300 ${
+      {/* Header with higher z-index to ensure it stays on top */}
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-white'
       }`}>
         <div className="container mx-auto py-4 px-4 flex justify-between items-center">
@@ -58,7 +69,8 @@ export default function GameLayout({ children }: GameLayoutProps) {
           </Link>
           
           <div className="flex items-center gap-6">
-            <nav>
+            {/* Desktop Navigation - hidden on mobile */}
+            <nav className="hidden md:block">
               <ul className="flex space-x-4">
                 <li>
                   <Link
@@ -87,6 +99,7 @@ export default function GameLayout({ children }: GameLayoutProps) {
               </ul>
             </nav>
             
+            {/* Language Switcher */}
             <div className="bg-white shadow-sm rounded-lg flex overflow-hidden border border-gray-200">
               <button
                 onClick={() => switchLanguage('pt')}
@@ -109,11 +122,79 @@ export default function GameLayout({ children }: GameLayoutProps) {
                 EN
               </button>
             </div>
+            
+            {/* Mobile Menu Button - only visible on mobile */}
+            <button 
+              className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-md hover:bg-green-50"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              <span className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${mobileMenuOpen ? 'transform rotate-45 translate-y-1.5' : 'mb-1.5'}`} />
+              <span className={`block w-6 h-0.5 bg-gray-800 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-0' : 'mb-1.5'}`} />
+              <span className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${mobileMenuOpen ? 'transform -rotate-45 -translate-y-1.5' : ''}`} />
+            </button>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto py-10 px-4 flex-grow">
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-[72px] right-0 h-screen w-3/4 max-w-xs z-40 bg-white shadow-lg border-l border-green-100"
+          >
+            <nav className="py-4">
+              <ul className="flex flex-col space-y-3">
+                <li className="border-b border-green-100">
+                  <Link
+                    href={`/${locale}`}
+                    className={isHomePage ? mobileActiveLinkStyle : mobileLinkStyle}
+                  >
+                    {t("navigation.home")}
+                  </Link>
+                </li>
+                <li className="border-b border-green-100">
+                  <Link
+                    href={`/${locale}/about`}
+                    className={isAboutPage ? mobileActiveLinkStyle : mobileLinkStyle}
+                  >
+                    {locale === "pt" ? "Sobre" : "About"}
+                  </Link>
+                </li>
+                <li className="border-b border-green-100">
+                  <Link
+                    href={`/${locale}/game`}
+                    className={isGamePage ? mobileActiveLinkStyle : mobileLinkStyle}
+                  >
+                    {locale === "pt" ? "Jogos" : "Games"}
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Backdrop for mobile menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black z-30"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Main content with appropriate z-index to stay below header */}
+      <main className="container mx-auto py-10 px-4 flex-grow relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -123,7 +204,7 @@ export default function GameLayout({ children }: GameLayoutProps) {
         </motion.div>
       </main>
 
-      <footer className="bg-white border-t border-green-100 mt-auto">
+      <footer className="bg-white border-t border-green-100 mt-auto relative z-10">
         <div className="container mx-auto py-6 px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center">

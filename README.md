@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 ClickSmart – Next.js + TypeScript
 
-## Getting Started
+[Vercel Deploy](https://clicksmart-web.vercel.app/pt)
 
-First, run the development server:
+Welcome to the **ClickSmart** project, an interactive application developed in **Next.js** and **TypeScript** to promote digital education and the prevention of cyberbullying among young people, through games and realistic simulations.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Access the online application: **[https://clicksmart-web.vercel.app/pt](https://clicksmart-web.vercel.app/pt)**
+
+---
+
+## 🏗️ System Architecture
+
+The system is designed to be modular, scalable, and easily internationalizable:
+
+- **Frontend:**  
+  - Framework: [Next.js](https://nextjs.org/)
+  - Language: TypeScript
+  - Styling: Tailwind CSS
+  - Animations: Framer Motion
+  - Internationalization: next-intl (Portuguese and English)
+- **Game Structure:**  
+  - Autonomous components for each game or activity (e.g.: ChatGame, FakenewsCreator)
+  - Scoring and feedback system for each scenario
+- **Translation files:**  
+  - Folders `/messages/pt.json` and `/messages/en.json` for multilingual content
+- **Hosting:**  
+  - Automatic deploy via [Vercel](https://vercel.com/), ensuring high availability and easy scalability
+
+```
+├── components/
+│   ├── game/
+│   │   ├── ChatGame.tsx         # Chat simulation game
+│   │   └── FakenewsCreator.tsx  # Fake news game
+│   └── ... (other components)
+├── messages/
+│   ├── en.json                  # English translations
+│   └── pt.json                  # Portuguese translations
+├── pages/
+│   ├── index.tsx                # Home page
+│   ├── games/                   # Game pages
+│   └── ... (other pages)
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Access the application directly at:  
+👉 **[https://clicksmart-web.vercel.app/pt](https://clicksmart-web.vercel.app/pt)**
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 👤 User Guide
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Local Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/sebastianascimento/clicksmart-web.git
+   cd clicksmart-web
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or, use the Makefile:
+   make run
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Open in the browser:**  
+   [http://localhost:3000](http://localhost:3000)
+
+---
+
+### 2. User Guide (How to Use the Application)
+
+- **Navigate through the main menu** to access the games and educational activities.
+- **Chat Game:**  
+  - Simulates group conversations where cyberbullying situations occur.
+  - The user chooses how to respond to offensive messages, receiving points and feedback according to their choices.
+  - Available in Portuguese and English (change the language in the menu).
+- **Fake News Creator Game:**  
+  - Create and analyze fake news to understand the impact of misinformation.
+  - Educational feedback at the end of each scenario.
+- **Scoring System:**  
+  - Your choices in each scenario offer immediate feedback and a final score.
+
+---
+
+## 📦 Deployment
+
+The application is hosted and available via [Vercel](https://vercel.com/):
+
+- Continuous deploy via push to the main branch
+- Production link: **[https://clicksmart-web.vercel.app/pt](https://clicksmart-web.vercel.app/pt)**
+
+---
+
+## 📚 More Information
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Learn Next.js](https://nextjs.org/learn)
+- [Vercel Documentation](https://vercel.com/docs)
+
+---
+
+## 🤝 Contributions
+
+Contributions are welcome! Follow the steps below:
+
+```bash
+# 1. Fork the project
+# 2. Create a branch for your feature or fix
+git checkout -b feature/NewFeature
+
+# 3. Commit your changes
+git commit -m "Add NewFeature"
+
+# 4. Push to your fork
+git push origin feature/NewFeature
+
+# 5. Open a Pull Request 🎉
+```
+
+---
+
+Made with ❤️ to promote safety and respect online.  
+Access: **[https://clicksmart-web.vercel.app/pt](https://clicksmart-web.vercel.app/pt)**

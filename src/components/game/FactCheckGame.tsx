@@ -147,6 +147,7 @@ export default function FactCheckGame({ onComplete }: { onComplete: (score: numb
           ${swipeDirection === 'right' ? 'transform translate-x-12' : ''}
           ${showFeedback && isCorrect ? 'border-green-500' : ''}
           ${showFeedback && !isCorrect ? 'border-red-500' : ''}
+          ${showFeedback ? 'min-h-[350px] md:min-h-[400px]' : ''}
         `}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -170,22 +171,26 @@ export default function FactCheckGame({ onComplete }: { onComplete: (score: numb
           </div>
         )}
         
-        {/* Feedback overlay */}
+        {/* Feedback overlay with fixed position button */}
         {showFeedback && (
-          <div className={`absolute inset-0 p-4 ${isCorrect ? 'bg-green-100' : 'bg-red-100'} bg-opacity-95`}>
-            <h3 className={`text-lg font-bold mb-2 ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-              {isCorrect ? factcheckT('correctAnswer') : factcheckT('wrongAnswer')}
-            </h3>
-            <p className="text-gray-700 mb-4">{currentNews.explanation}</p>
-            <p className="text-gray-800 font-semibold">
-              {currentNews.isFake ? factcheckT('thisFake') : factcheckT('thisReal')}
-            </p>
-            <button
-              onClick={handleNext}
-              className="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
-            >
-              {currentNewsIndex === newsItems.length - 1 ? factcheckT('finishGame') : factcheckT('nextNews')}
-            </button>
+          <div className={`absolute inset-0 flex flex-col ${isCorrect ? 'bg-green-100' : 'bg-red-100'} bg-opacity-95`}>
+            <div className="flex-1 overflow-auto p-4">
+              <h3 className={`text-lg font-bold mb-2 ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
+                {isCorrect ? factcheckT('correctAnswer') : factcheckT('wrongAnswer')}
+              </h3>
+              <p className="text-gray-700 mb-4">{currentNews.explanation}</p>
+              <p className="text-gray-800 font-semibold mb-16">
+                {currentNews.isFake ? factcheckT('thisFake') : factcheckT('thisReal')}
+              </p>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
+              <button
+                onClick={handleNext}
+                className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+              >
+                {currentNewsIndex === newsItems.length - 1 ? factcheckT('finishGame') : factcheckT('nextNews')}
+              </button>
+            </div>
           </div>
         )}
       </div>
