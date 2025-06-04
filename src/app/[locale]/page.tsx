@@ -364,6 +364,20 @@ export default function Home() {
             </div>
           </div>
           
+          {/* Add partners logo section */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <div className="flex justify-center">
+              <Image
+                src="/images/erasmus.png"
+                alt="Partners logos: etic, ESCOLA DE TECNOLOGIAS INOVAÇÃO E CRIAÇÃO DO ALGARVE, Erasmus+"
+                width={800}
+                height={100}
+                className="w-full max-w-3xl object-contain"
+                priority
+              />
+            </div>
+          </div>
+          
           <div className="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
             <p>© {new Date().getFullYear()} ClickSmart. {t('rights')}</p>
           </div>
@@ -371,4 +385,4 @@ export default function Home() {
       </footer>
     </div>
   );
-} 
+}
